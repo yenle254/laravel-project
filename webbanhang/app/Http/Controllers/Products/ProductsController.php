@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Products;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product\Product;
+use App\Models\Product\Category; // Import model Category
+
 class ProductsController extends Controller
 {
     public function singleCategory($id)
@@ -13,23 +15,17 @@ class ProductsController extends Controller
         return view('products.singleCategory', compact('products'));
     }
 
-    // public function singleProduct($id)
-    // {
-    //     $product = Product::find($id);
-    //     $relatedProducts = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->get();
-    //     return view('products.singleproduct', compact('product','relatedProducts'));
-    // }
     public function singleProduct($id)
-{
-    try {
-        $product = Product::findOrFail($id);
-        $relatedProducts = Product::where('category_id', $product->category_id)
-                                   ->where('id', '!=', $product->id)
-                                   ->get();
+    {
+        $product = Product::find($id);
+        $relatedProducts = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->get();
+        return view('products.singleproduct', compact('product','relatedProducts'));
+        }
+    
 
-        return view('products.singleproduct', compact('product', 'relatedProducts'));
-    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-        return redirect()->route('home')->with('error', 'Product not found.');
+    public function shop() // Phương thức shop được đặt bên trong class
+    {
+        $categories = Category::select()->orderBy('id', 'desc')->get();
+        return view('products.shop', compact('categories'));
     }
-}
 }

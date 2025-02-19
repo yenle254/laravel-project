@@ -88,7 +88,7 @@
             <div class="container">
                 <!-- Navbar Brand -->
                 <a href="{{url('/')}}" class="navbar-brand">
-                    <img src="assets/img/logo/logo.png" alt="">
+                    <img src="{{asset('assets/img/logo/logo.png')}}" alt="">
                 </a>
 
                 <!-- Toggle Button -->
@@ -100,7 +100,7 @@
                     <!-- Navbar Menu -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a href="shop.html" class="nav-link">Shop</a>
+                            <a href="{{route('products.shop')}}" class="nav-link">Shop</a>
                         </li>
 
                     @guest
