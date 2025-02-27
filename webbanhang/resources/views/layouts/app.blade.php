@@ -31,56 +31,6 @@
 </head>
 <body>
     <div id="app">
-        <!-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <ul class="navbar-nav ms-auto">
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav> -->
 
         <div class="page-header">
         <!--=============== Navbar ===============-->
@@ -115,42 +65,34 @@
                              <a href="{{route('login')}}" class="nav-link">Login</a>
                           </li>
                         @endif
+                    @else
+                    
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="avatar-header"><img src="{{ asset('assets/users_images/'.Auth::user()->image.'') }}"></div> {{ Auth::user()->name }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{route('users.orders')}}">Transactions History</a>
+                        <a class="dropdown-item" href="{{route('users.settings')}}">Settings</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+                    </li>
+
+
+                        <li class="nav-item">
+                            <a href="{{route('products.cart')}}" class="nav-link" data-toggle="" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary"></span>
+                            </a>
+                        </li>
                     @endguest
-                    @auth
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <div class="avatar-header"><img src="{{ asset('assets/img/logo/avatar.jpg') }}"></div> {{ Auth::user()->name }}
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="transaction.html">Transactions History</a>
-            <a class="dropdown-item" href="setting.html">Settings</a>
-            <a class="dropdown-item" href="{{ route('logout') }}"
-                   onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-            </a>
-
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
-        </div>
-    </li>
-@endauth
-
-<li class="nav-item">
-    <a href="cart.html" class="nav-link" data-toggle="" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-shopping-basket"></i> <span class="badge badge-primary">5</span>
-    </a>
-</li>
-
-<!-- @guest
-    <li class="nav-item">
-        <a href="{{ route('login') }}" class="nav-link">Login</a>
-    </li>
-    <li class="nav-item">
-        <a href="{{ route('register') }}" class="nav-link">Register</a>
-    </li>
-@endguest -->
                     </ul>
                 </div>
 
@@ -158,80 +100,7 @@
         </nav>
     </div>
 
-    <!-- <div id="page-content" class="page-content">
-        <div class="banner">
-            <div class="jumbotron jumbotron-video text-center bg-dark mb-0 rounded-0">
-                <video width="100%" preload="auto" loop autoplay muted>
-                    <source src='assets/media/explore.mp4' type='video/mp4' />
-                    <source src='assets/media/explore.webm' type='video/webm' />
-                </video>
-                <div class="container">
-                    <h1 class="pt-5">
-                        Save time and leave the<br>
-                        groceries to us.
-                    </h1>
-                    <p class="lead">
-                        Always Fresh Everyday.
-                    </p>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card border-0 text-center">
-                                <div class="card-icon">
-                                    <div class="card-icon-i">
-                                        <i class="fa fa-shopping-basket"></i>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        Buy
-                                    </h4>
-                                    <p class="card-text">
-                                        Simply click-to-buy on the product you want and submit your order when you're done.
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card border-0 text-center">
-                                <div class="card-icon">
-                                    <div class="card-icon-i">
-                                        <i class="fas fa-leaf"></i>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        Harvest
-                                    </h4>
-                                    <p class="card-text">
-                                        Our team ensures the produce quality is up to our standard and delivers to your door within 24 hours of harvest day.
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card border-0 text-center">
-                                <div class="card-icon">
-                                    <div class="card-icon-i">
-                                        <i class="fa fa-truck"></i>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        Delivery
-                                    </h4>
-                                    <p class="card-text">
-                                        Farmers receive your orders two days in advance so they can prepare for harvest exactly as your orders – no wasted produce.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
+   
 
         <main class="py-4">
             @yield('content')
